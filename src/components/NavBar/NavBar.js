@@ -11,6 +11,7 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import MenuIcon from "@mui/icons-material/Menu";
 import MusicNoteIcon from "@mui/icons-material/MusicNote";
+import CartWidget from "../CartWidget/CartWidget";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 const pages = ["CD", "EP"];
@@ -114,10 +115,15 @@ const NavBar = () => {
                 </Button>
               ))}
             </Box>
+            {/* CARRITO */}
+            <Box sx={{ flexGrow: 0 }}>
+              <CartWidget />
+            </Box>
           </Toolbar>
         </Container>
       </AppBar>
     </ThemeProvider>
   );
 };
+
 export default NavBar;
