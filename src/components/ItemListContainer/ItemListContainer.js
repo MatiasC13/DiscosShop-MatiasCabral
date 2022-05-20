@@ -1,5 +1,6 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
+import ItemCount from "../ItemCount/ItemCount";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "./ItemListContainer.css";
 
@@ -17,11 +18,14 @@ const ItemListContainer = ({ title }) => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Typography className="title" variant="h2" align="center" mt={2}>
-        {title}
-      </Typography>
-    </ThemeProvider>
+    <>
+      <ThemeProvider theme={theme}>
+        <Typography className="title" variant="h2" align="center" mt={2}>
+          {title}
+        </Typography>
+      </ThemeProvider>
+      <ItemCount stock={5} initial={1} />
+    </>
   );
 };
 
