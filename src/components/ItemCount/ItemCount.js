@@ -1,7 +1,5 @@
-import React from "react";
 import { useState } from "react";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+import { Button, Typography } from "@mui/material";
 import "./ItemCount.css";
 
 const ItemCount = ({ stock, initial }) => {
@@ -12,40 +10,38 @@ const ItemCount = ({ stock, initial }) => {
   };
 
   return (
-    <>
-      <div className="flex">
-        <div className="count-item">
-          <Button
-            onClick={() => setCount(count - 1)}
-            disabled={count === 0}
-            variant="text"
-            color="inherit"
-          >
-            -
-          </Button>
-          <Typography variant="button" my={1}>
-            {count}
-          </Typography>
-          <Button
-            onClick={() => setCount(count + 1)}
-            disabled={count >= stock}
-            variant="text"
-            color="inherit"
-          >
-            +
-          </Button>
-        </div>
+    <div className="flex">
+      <div className="count-item">
         <Button
-          onClick={onAdd}
-          disabled={count <= 0 || count > stock}
-          variant="outlined"
+          onClick={() => setCount(count - 1)}
+          disabled={count === 0}
+          variant="text"
           color="inherit"
-          size="large"
         >
-          Comprar
+          -
+        </Button>
+        <Typography variant="button" my={1}>
+          {count}
+        </Typography>
+        <Button
+          onClick={() => setCount(count + 1)}
+          disabled={count >= stock}
+          variant="text"
+          color="inherit"
+        >
+          +
         </Button>
       </div>
-    </>
+      <Button
+        onClick={onAdd}
+        disabled={count <= 0 || count > stock}
+        variant="outlined"
+        color="inherit"
+        size="large"
+      >
+        Comprar
+      </Button>
+    </div>
   );
 };
 
