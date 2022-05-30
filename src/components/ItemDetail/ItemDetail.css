@@ -1,0 +1,14 @@
+.grid-img {
+  display: flex;
+  justify-content: center;
+}
+
+.img-detail {
+  max-width: 100%;
+  height: auto;
+}
+
+.info-detail {
+  display: flex;
+  justify-content: space-between;
+}
