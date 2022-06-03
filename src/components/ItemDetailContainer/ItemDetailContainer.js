@@ -1,27 +1,19 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import ItemDetail from "../ItemDetail/ItemDetail";
-import { disco } from "../../utils/discosMock";
+import discos from "../../utils/discosMock";
 
 const ItemDetailContainer = () => {
   const [product, setProduct] = useState({});
+  const { id } = useParams();
 
   useEffect(() => {
-    getItem()
-      .then((response) => {
-        setProduct(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    setProduct(productFilter);
   }, []);
 
-  const getItem = () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(disco);
-      }, 2000);
-    });
-  };
+  const productFilter = discos.find((d) => {
+    return d.id == id;
+  });
 
   return <ItemDetail item={product} />;
 };

@@ -1,17 +1,20 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import ItemList from "../ItemList/ItemList";
-import { discos } from "../../utils/discosMock";
+import discos from "../../utils/discosMock";
 import "./ItemListContainer.css";
 
 const ItemListContainer = ({ title }) => {
   const [products, setProducts] = useState([]);
+  const { categoria } = useParams();
 
   useEffect(() => {
+    setProducts([]);
     getProducts()
       .then((response) => {
-        setProducts(response);
+        filterByCategory(response);
       })
       .catch((error) => {
         console.log(error);
@@ -23,6 +26,14 @@ const ItemListContainer = ({ title }) => {
       setTimeout(() => {
         resolve(discos);
       }, 2000);
+    });
+  };
+
+  const filterByCategory = (discos) => {
+    return discos.map((item) => {
+      if (item.categoria == categoria) {
+        return setProducts((products) => [...products, item]);
+      }
     });
   };
 

@@ -1,31 +1,23 @@
+import "./NavBar.css";
 import { useState } from "react";
-import {
-  AppBar,
-  Box,
-  Toolbar,
-  IconButton,
-  Typography,
-  Menu,
-  Container,
-  Button,
-  MenuItem,
-} from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+import { Link } from "react-router-dom";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 import MusicNoteIcon from "@mui/icons-material/MusicNote";
 import CartWidget from "../CartWidget/CartWidget";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-
-const pages = ["CD", "EP"];
 
 const NavBar = () => {
-  const [anchorElNav, setAnchorElNav] = useState(null);
-
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
   };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
   const darkTheme = createTheme({
@@ -34,94 +26,64 @@ const NavBar = () => {
     },
   });
 
+  const categorias = ["cd", "lp"];
+
   return (
     <ThemeProvider theme={darkTheme}>
-      <AppBar position="sticky">
-        <Container maxWidth="xl">
-          <Toolbar disableGutters>
-            <MusicNoteIcon
-              sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
-            />
-            <Typography
-              variant="h6"
-              noWrap
-              component="a"
-              href="/"
-              sx={{
-                mr: 2,
-                display: { xs: "none", md: "flex" },
-                fontFamily: "monospace",
-                fontWeight: 700,
-                letterSpacing: ".3rem",
-                color: "inherit",
-                textDecoration: "none",
-              }}
-            >
+      <AppBar position="static" className="header-primary">
+        <Toolbar>
+          <div className="container-logo">
+            <Link to="/">
+              <MusicNoteIcon />
               Discos Shop
-            </Typography>
-
-            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-              <IconButton
-                size="large"
-                onClick={handleOpenNavMenu}
-                color="inherit"
+            </Link>
+          </div>
+          <ul className="navbar">
+            <li>
+              <Button
+                disableRipple
+                style={{ backgroundColor: "transparent" }}
+                variant="text"
+                className="navbar__btn"
               >
-                <MenuIcon />
-              </IconButton>
-
+                <Link to="/">Inicio</Link>
+              </Button>
+            </li>
+            <li>
+              <Button
+                id="basic-button"
+                aria-controls={open ? "basic-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? "true" : undefined}
+                onClick={handleClick}
+                disableRipple
+                style={{ backgroundColor: "transparent" }}
+                variant="text"
+                className="navbar__btn"
+              >
+                Categorias
+              </Button>
               <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                keepMounted
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{
-                  display: { xs: "block", md: "none" },
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  "aria-labelledby": "basic-button",
                 }}
               >
-                {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
-                  </MenuItem>
-                ))}
+                {categorias.map((cat) => {
+                  return (
+                    <MenuItem key={cat} onClick={handleClose}>
+                      <Link to={`/categorias/${cat}`}>{cat}</Link>
+                    </MenuItem>
+                  );
+                })}
               </Menu>
-            </Box>
-
-            <Typography
-              variant="h5"
-              noWrap
-              component="a"
-              href=""
-              sx={{
-                mr: 2,
-                display: { xs: "flex", md: "none" },
-                flexGrow: 1,
-                fontFamily: "monospace",
-                fontWeight: 700,
-                letterSpacing: ".1rem",
-                color: "inherit",
-                textDecoration: "none",
-              }}
-            >
-              Discos Shop
-            </Typography>
-            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              {pages.map((page) => (
-                <Button
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block" }}
-                >
-                  {page}
-                </Button>
-              ))}
-            </Box>
-            {/* CARRITO */}
-            <Box sx={{ flexGrow: 0 }}>
-              <CartWidget />
-            </Box>
-          </Toolbar>
-        </Container>
+            </li>
+          </ul>
+          <CartWidget />
+        </Toolbar>
       </AppBar>
     </ThemeProvider>
   );

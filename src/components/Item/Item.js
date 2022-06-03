@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   Grid,
   Card,
@@ -8,33 +9,35 @@ import {
 } from "@mui/material";
 import "./Item.css";
 
-const Item = ({ p: { imagen, titulo, artista, precio } }) => {
+const Item = ({ p: { id, imagen, titulo, artista, precio } }) => {
   return (
     <Grid item xs={12} sm={6} md={4} lg={3}>
-      <Card>
-        <CardActionArea>
-          <CardMedia
-            component="img"
-            height="100%"
-            image={`./img/${imagen}`}
-            alt=""
-          />
-          <CardContent>
-            <Typography
-              gutterBottom
-              variant="h5"
-              align="center"
-              className="title-item"
-            >
-              {titulo}
-            </Typography>
-            <Grid container direction="row" justifyContent="space-between">
-              <Typography variant="subtitle1">{artista}</Typography>
-              <Typography variant="subtitle1">${precio}</Typography>
-            </Grid>
-          </CardContent>
-        </CardActionArea>
-      </Card>
+      <Link to={`/producto/${id}`}>
+        <Card>
+          <CardActionArea>
+            <CardMedia
+              component="img"
+              height="100%"
+              image={`/img/${imagen}`}
+              alt=""
+            />
+            <CardContent>
+              <Typography
+                gutterBottom
+                variant="h5"
+                align="center"
+                className="titulo-item"
+              >
+                {titulo}
+              </Typography>
+              <Grid container direction="row" justifyContent="space-between">
+                <Typography variant="subtitle1">{artista}</Typography>
+                <Typography variant="subtitle1">${precio}</Typography>
+              </Grid>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+      </Link>
     </Grid>
   );
 };
