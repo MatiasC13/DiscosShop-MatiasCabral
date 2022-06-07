@@ -2,12 +2,8 @@ import { useState } from "react";
 import { Button, Typography } from "@mui/material";
 import "./ItemCount.css";
 
-const ItemCount = ({ stock, initial }) => {
+const ItemCount = ({ stock, initial, setOnAdd }) => {
   const [count, setCount] = useState(initial);
-
-  const onAdd = () => {
-    console.log(`${count} disco/s agregado/s.`);
-  };
 
   return (
     <div className="flex">
@@ -33,13 +29,13 @@ const ItemCount = ({ stock, initial }) => {
         </Button>
       </div>
       <Button
-        onClick={onAdd}
+        onClick={setOnAdd}
         disabled={count <= 0 || count > stock}
         variant="outlined"
         color="inherit"
         size="large"
       >
-        Comprar
+        Agregar Producto
       </Button>
     </div>
   );

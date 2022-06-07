@@ -12,3 +12,8 @@
   display: flex;
   justify-content: space-between;
 }
+
+.item-detail-button {
+  width: 100%;
+  background-color: #000000 !important;
+}
